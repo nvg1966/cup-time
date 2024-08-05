@@ -92,7 +92,17 @@ input[type="number"] {
   gap: 50px;
 }
 
-.header__menu-link.active {
+.header__menu-link {
+  border-bottom: 3px solid transparent;
+  padding-bottom: 5px;
+  transition: border-bottom-color .3s ease-in-out;
+}
+.header__menu-link:hover {
+  border-bottom-color: #64099b;
+}
+
+.header__menu-link.active,
+.footer__menu-link.active {
   color: #64099b;
 }
 
@@ -272,6 +282,25 @@ input[type="number"] {
 .footer__social {
   display: flex;
   gap: 12px;
+}
+
+.footer__social-link {
+  display: block;
+  color: #fff;
+  transition: color 0.3s ease-in-out;
+  outline: none;
+  line-height: 0;
+  border-radius: 6px;
+}
+
+.footer__social-link:hover {
+  color: #64099b;
+}
+
+.footer__social-link:focus-visible {
+  color: #64099b;
+  outline: 2px solid #64099b;
+  outline-offset: 3px;
 }
 
 .cart {

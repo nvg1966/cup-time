@@ -1,25 +1,26 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useProducts } from "../context/ProductContext";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { getActiveClass } from "../helpers";
 
 export const Header = () => {
-  const location = useLocation();
   const { cart } = useCart();
   const { categories } = useProducts();
-
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? "hidden" : "auto";
+  }, [isMenuOpen]);
+
   const closeMenu = () => {
     setIsMenuOpen(false);
   };
+
   const openMenu = () => {
     setIsMenuOpen(true);
   };
 
-  const getActiveClass = (category) => {
-    const currentCategory = new URLSearchParams(location.search).get("category");
-    return currentCategory === category ? "active" : "";
-  };
   return (
     <header className="header">
       <div className="container header__container">
@@ -39,7 +40,7 @@ export const Header = () => {
               </li>
             ))}
           </ul>
-          <button className="header__close-btn" onClick={closeMenu}>
+          <button className="header__close-btn" onClick={closeMenu}  aria-label="Закрыть меню">
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect
                 x="7.28174"
@@ -64,7 +65,7 @@ export const Header = () => {
           <Link className="header__cart-link" to="cart">
             {cart ? cart.reduce((acc, item) => item.quantity + acc, 0) : 0}
           </Link>
-          <button className="header__burger" aria-label="Открыть меню" onClick={openMenu}>
+          <button className="header__burger" aria-label="Открыть меню" onClick={openMenu} >
             <svg width="28" height="29" viewBox="0 0 28 29" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect x="4" y="9.5" width="20" height="1" fill="#D9D9D9" />
               <rect x="4" y="14.5" width="20" height="1" fill="#D9D9D9" />
